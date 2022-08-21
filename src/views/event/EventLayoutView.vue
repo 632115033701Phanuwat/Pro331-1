@@ -6,11 +6,11 @@
         >Details</router-link
       >
       |
-      <router-link :to="{ name: 'EventAirlineDetail', params: { id } }"
+      <router-link :to="{ name: 'EventVaccineDetail', params: { id } }"
         >Vaccine</router-link
       >
       |
-      <router-link :to="{ name: 'EventRegister', params: { id } }"
+      <router-link :to="{ name: 'EventComment', params: { id } }"
         >Comment</router-link
       >
       |

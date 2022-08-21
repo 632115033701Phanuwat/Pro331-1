@@ -2,12 +2,12 @@ import { createRouter, createWebHistory } from 'vue-router'
 import EventListView from '../views/EventListView.vue'
 import AboutView from '../views/AboutView.vue'
 import EventDetails from '@/views/event/EventDetailView.vue'
-import EventRegister from '@/views/event/EventRegister.vue'
+import EventComment from '@/views/event/EventComment.vue'
 import EventEdit from '@/views/event/EditView.vue'
 import Eventlayout from '@/views/event/EventLayoutView.vue'
 import NotFoundView from '@/views/NotFoundView.vue'
 import NetWorkError from '@/views/NetworkErrorView.vue'
-import EventAirlineDetail from '@/views/event/EventAirlineDetail.vue'
+import EventVaccineDetail from '@/views/event/EventVaccineDetail.vue'
 
 const routes = [
   {
@@ -36,15 +36,15 @@ const routes = [
         component: EventDetails
       },
       {
-        path: 'airlineDetails',
-        name: 'EventAirlineDetail',
-        component: EventAirlineDetail
+        path: '/vaccineDetails',
+        name: 'EventVaccineDetail',
+        component: EventVaccineDetail
       },
       {
-        path: 'register',
-        name: 'EventRegister',
+        path: '/comment',
+        name: 'EventComment',
         props: true,
-        component: EventRegister
+        component: EventComment
       }
     ]
   },
@@ -66,9 +66,9 @@ const routes = [
   },
   {
     path: '/event/:id/register',
-    name: 'EventRegister',
+    name: 'EventComment',
     props: true,
-    component: EventRegister
+    component: EventComment
   },
   {
     path: '/event/:id/edit',
