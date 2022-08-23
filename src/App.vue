@@ -52,7 +52,7 @@ h4 {
 }
 
 body {
-  background-image: url('/Users/ASUS TUF FA506/OneDrive/เดสก์ท็อป/COM/Pro331-1/src/assets/covid-19-healthcare-workers-pandemic-concept-lovely-caring-asian-doctor-female-nurse-scrubs-showing-heart-gesture-smiling-taking-care-patients-with-love-white-background.jpg');
+  background-image: url('~@/assets/02.jpg');
   background-size: 1650px;
   background-attachment: fixed;
 }
