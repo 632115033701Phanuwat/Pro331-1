@@ -6,6 +6,7 @@
       :key="event.id"
       :event="event"
     ></EventCard>
+
     <div class="pagination">
       <router-link
         id="page-prev"
@@ -13,8 +14,8 @@
         rel="prev"
         v-if="page != 1"
       >
-        Prev Page</router-link
-      >
+        Prev Page
+      </router-link>
 
       <router-link
         id="page-next"
@@ -22,12 +23,9 @@
         rel="next"
         v-if="hasNextPage"
       >
-        Next Page</router-link
-      >
+        Next Page
+      </router-link>
     </div>
-    <router-link :to="{ name: 'EventList', query: { morepage: morepage + 1 } }">
-      Add data</router-link
-    >
   </div>
 </template>
 
@@ -35,15 +33,11 @@
 // @ is an alias to /src
 import EventCard from '@/components/EventCard.vue'
 import EventService from '@/services/EventService.js'
-import { watchEffect } from '@vue/runtime-core'
+//import { watchEffect } from '@vue/runtime-core'
 export default {
   name: 'EventListView',
   props: {
     page: {
-      type: Number,
-      required: true
-    },
-    morepage: {
       type: Number,
       required: true
     }
@@ -54,27 +48,46 @@ export default {
   data() {
     return {
       events: null,
-      totalEvents: 0 // <--- Added this to store totalEvents
+      totalEvents: 0
     }
   },
-  created() {
-    watchEffect(() => {
-      EventService.getEvents(this.morepage, this.page)
-        .then((response) => {
-          this.events = response.data
-          this.totalEvents = response.headers['x-total-count'] // <--- Store it
+  // created() {
+  //   watchEffect(() => {
+  //     EventService.getEvents(2, this.page)
+  //       .then((response) => {
+  //         this.events = response.data
+  //         this.totalEvents = response.headers['x-total-count']
+  //       })
+  //       .catch((error) => {
+  //         console.log(error)
+  //       })
+  //eslint-disable-next-line no-unused-vars
+  beforeRouteEnter(routeTo, routeFrom, next) {
+    EventService.getEvents(3, parseInt(routeTo.query.page) || 1)
+      .then((response) => {
+        next((comp) => {
+          comp.events = response.data
+          comp.totalEvents = response.headers['x-total-count']
         })
-        .catch((error) => {
-          console.log(error)
-        })
-    })
+      })
+      .catch(() => {
+        next({ name: 'NetworkError' })
+      })
+  },
+  beforeRouteUpdate(routeTo, routeFrom, next) {
+    EventService.getEvents(3, parseInt(routeTo.query.page) || 1)
+      .then((response) => {
+        this.events = response.data
+        this.totalEvents = response.headers['x-total-count']
+        next()
+      })
+      .catch(() => {
+        next({ name: 'NetworkError' })
+      })
   },
   computed: {
     hasNextPage() {
-      //First, calculate total pages
-      let totalPages = Math.ceil(this.totalEvents / 2) // 2 is events per pages.
-
-      //Then check to see if the current page is less than the total pages.
+      let totalPages = Math.ceil(this.totalEvents / 3)
       return this.page < totalPages
     }
   }
@@ -86,11 +99,11 @@ export default {
   flex-direction: column;
   align-items: center;
 }
-
 .pagination {
   display: flex;
   width: 290px;
 }
+
 .pagination a {
   flex: 1;
   text-decoration: none;

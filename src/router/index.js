@@ -1,19 +1,22 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import EventListView from '../views/EventListView.vue'
+// import EventListView from '../views/EventListView.vue'
 import AboutView from '../views/AboutView.vue'
-import EventDetails from '@/views/event/EventDetailView.vue'
+import EventDetailsview from '@/views/event/EventDetailView.vue'
+import EventDetails from '@/views/EventDetails.vue'
 import EventComment from '@/views/event/EventComment.vue'
 import EventEdit from '@/views/event/EditView.vue'
-import Eventlayout from '@/views/event/EventLayoutView.vue'
+import EventlayoutView from '@/views/event/EventLayoutView.vue'
 import NotFoundView from '@/views/NotFoundView.vue'
+import GStore from '@/store'
 import NetWorkError from '@/views/NetworkErrorView.vue'
+import EventService from '@/services/EventService.js'
 import EventVaccineDetail from '@/views/event/EventVaccineDetail.vue'
 
 const routes = [
   {
     path: '/',
     name: 'EventList',
-    component: EventListView,
+    component: EventDetails,
     props: (route) => ({
       page: parseInt(route.query.page) || 1,
       morepage: parseInt(route.query.morepage) || 5
@@ -26,23 +29,44 @@ const routes = [
   },
   {
     path: '/event/:id',
-    name: 'EventLayout',
+    name: 'EventLayoutView',
+    component: EventlayoutView,
     props: true,
-    component: Eventlayout,
+    beforeEnter: (to) => {
+      //<-- put API call here
+      return EventService.getEvent(to.params.id) //return and params.id
+        .then((response) => {
+          //still need to set the data here
+          GStore.event = response.data
+        })
+        .catch((error) => {
+          if (error.response && error.response.status == 404) {
+            return {
+              //<---Return
+              name: '404Resource',
+              params: { resource: 'event' }
+            }
+          } else {
+            return { name: 'NetworkError' }
+          }
+        })
+    },
     children: [
       {
-        path: '',
+        path: 'Patient',
         name: 'EventDetails',
-        component: EventDetails
+        component: EventDetailsview,
+        props: true
       },
       {
-        path: '/vaccineDetails',
-        name: 'EventVaccineDetail',
+        path: 'VaccineCertificate ',
+        name: 'VaccineDetail',
+        props: true,
         component: EventVaccineDetail
       },
       {
-        path: '/comment',
-        name: 'EventComment',
+        path: 'DoctorRecommendation',
+        name: 'EventRegister',
         props: true,
         component: EventComment
       }

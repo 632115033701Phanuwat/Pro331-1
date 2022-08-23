@@ -1,18 +1,32 @@
 <template>
-  <h4>Details</h4>
-  <p>ID# {{ event.id }}</p>
-  <p>Name: {{ event.first_name }} {{ event.last_name }}</p>
-  <p>Email: {{ event.email }}</p>
-  <p>Gender: {{ event.gender }}</p>
-  <p>IP_Address: {{ event.ip_address }}</p>
-  <p>Source: {{ event.Source }}</p>
-  <p>Destination: {{ event.Destination }}</p>
-  <p>Travel Date: {{ event.travelDate }}</p>
-  <p>Airline ID: {{ event.airlineId }}</p>
+  <div v-if="event">
+    <h1>Name :{{ event.title }}</h1>
+    <p>Age :{{ event.age }}</p>
+    <p>Home :{{ event.location }}</p>
+    <p>have vaccine :{{ event.NumberOfVaccine }}</p>
+    <!-- <p>{{ event.description }}</p> -->
+  </div>
 </template>
 
 <script>
+import EventService from '@/services/EventService.js'
+
 export default {
-  props: ['event']
+  props: ['id'],
+  data() {
+    return {
+      event: null
+    }
+  },
+  created() {
+    // fetch event (by id) and set local event data
+    EventService.getEvent(this.id)
+      .then((response) => {
+        this.event = response.data
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+  }
 }
 </script>

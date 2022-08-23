@@ -4,8 +4,8 @@
     :to="{ name: 'EventDetails', params: { id: event.id } }"
   >
     <div class="event-card">
-      <h3>ID# {{ event.id }}</h3>
-      <h3>{{ event.first_name }} {{ event.last_name }}</h3>
+      <h1>{{ event.title }}</h1>
+      <span>Have vaccine : {{ event.NumberOfVaccine }}</span>
     </div>
   </router-link>
 </template>
@@ -14,10 +14,6 @@ export default {
   name: 'EventCard',
   props: {
     event: {
-      type: Object,
-      required: true
-    },
-    air: {
       type: Object,
       required: true
     }
@@ -29,13 +25,13 @@ export default {
   padding: 20px;
   width: 250px;
   cursor: pointer;
-  border: 1px solid #39495c;
-  margin-bottom: 18px;
+  border: 1px solid #000000;
+  margin: 35px 0 0 0;
 }
 
 .event-card:hover {
   transform: scale(1.01);
-  box-shadow: 0 3px 12px 0 rgba(0, 0, 0, 0.2);
+  box-shadow: 20px 10px 20px 10px rgba(10, 10, 10, 0.2);
 }
 
 .event-link {
