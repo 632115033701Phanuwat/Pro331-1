@@ -133,4 +133,14 @@ export default {
 .event {
   display: inline-block;
 }
+
+.color {
+  padding: 10px;
+  width: 400px;
+  margin: -40px 0 0 550px;
+  background-color: none;
+  border-radius: 25px;
+  background-color: #9fe2bf;
+  color: #fff;
+}
 </style>

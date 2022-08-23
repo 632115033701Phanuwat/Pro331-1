@@ -1,5 +1,5 @@
 <template>
-  <div v-if="event">
+  <div class="color" v-if="event">
     <h1>Name :{{ event.title }}</h1>
     <p>Age :{{ event.age }}</p>
     <p>Home :{{ event.location }}</p>
@@ -30,3 +30,14 @@ export default {
   }
 }
 </script>
+<style scoped>
+.color {
+  padding: 10px;
+  width: 700px;
+  margin: 0px 0 0 400px;
+  background-color: none;
+  border-radius: 60px;
+  background-color: #6979a1;
+  color: #fff;
+}
+</style>
