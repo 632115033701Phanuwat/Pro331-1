@@ -1,24 +1,10 @@
-# lab03
+Project 331
 
-## Project setup
-```
-npm install
-```
+Group Name
+1 62115033 Phanuwat Panya
+2 632115017 Nattaparin Somnuek
+For the vm Depoly
+You can fix with secret HOST_SERVER in setting we make it with branches prod-docker
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+firebase
+https://se331-2.firebaseapp.com/
