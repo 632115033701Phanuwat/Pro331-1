@@ -1,0 +1,6 @@
+version: "3.3"
+services:
+    web:
+        image: "phanuwat33/pro331-1:latest"
+        ports: 
+            - 8003:80
