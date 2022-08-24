@@ -52,17 +52,7 @@ export default {
       totalEvents: 0
     }
   },
-  // created() {
-  //   watchEffect(() => {
-  //     EventService.getEvents(2, this.page)
-  //       .then((response) => {
-  //         this.events = response.data
-  //         this.totalEvents = response.headers['x-total-count']
-  //       })
-  //       .catch((error) => {
-  //         console.log(error)
-  //       })
-  //eslint-disable-next-line no-unused-vars
+
   beforeRouteEnter(routeTo, routeFrom, next) {
     EventService.getEvents(3, parseInt(routeTo.query.page) || 1)
       .then((response) => {
